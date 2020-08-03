@@ -10,16 +10,18 @@ for more info.
 ## How to contribute
 
 ### Sponsor!
+
 [Donate](https://opencollective.com/darkreader) via Open Collective.
 
 ### Translate!
+
 [Improve or suggest](https://github.com/darkreader/darkreader/tree/master/src/_locales) a translation.
 See the list of [language codes](https://developer.chrome.com/webstore/i18n#localeTable) that we can support.
 
 ### Fix a wrong inversion!
 
 If a website is **already dark** (has all pages dark by default), you can **add it to the [dark-sites.config](https://github.com/alexanderby/darkreader/blob/master/src/config/dark-sites.config) file**
-*(please, preserve alphabetical order)*.
+_(please, preserve alphabetical order)_.
 
 If some **parts** of a web page are **wrongly inverted**,
 you can fix this by specifying appropriate [**CSS selectors**](https://developer.mozilla.org/docs/Web/CSS/CSS_Selectors) in
@@ -27,14 +29,14 @@ you can fix this by specifying appropriate [**CSS selectors**](https://developer
 (for Dynamic Theme mode)
 or **[inversion-fixes.config](https://github.com/alexanderby/darkreader/blob/master/src/config/inversion-fixes.config)**
 (for Filter and Filter+ modes)
-*(please, preserve alphabetical order by URL, use short selectors, and preserve code style)*.
+_(please, preserve alphabetical order by URL, use short selectors, and preserve code style)_.
 
 Automatically syncing the above files to every Dark Reader user was disabled because the GitHub team doesn't allow using GitHub as a CDN. Storing these files and making requests to other resources would be expensive and look suspicious. As such, changes are included with each new Dark Reader release.
 
 ### Use Dev Tools!
 
 Dev Tools is designed to **fix minor issues** on a web page
-*(like dark icon on dark background, removing bright background, adding white background to transparent image, etc.)*.
+_(like dark icon on dark background, removing bright background, adding white background to transparent image, etc.)_.
 If the page looks partially dark and bright in **Dynamic mode**, we consider it a bug.
 For **Filter mode**, it is a common practice to invert already dark page parts.
 
@@ -48,8 +50,8 @@ For **Filter mode**, it is a common practice to invert already dark page parts.
 - Click **Apply**.
 - Check how it looks both in **Light** and **Dark** mode.
 - If the **fix works** open
-**[dynamic-theme-fixes.config](https://github.com/alexanderby/darkreader/blob/master/src/config/dynamic-theme-fixes.config) file**
-or **[inversion-fixes.config](https://github.com/alexanderby/darkreader/blob/master/src/config/inversion-fixes.config) file**.
+  **[dynamic-theme-fixes.config](https://github.com/alexanderby/darkreader/blob/master/src/config/dynamic-theme-fixes.config) file**
+  or **[inversion-fixes.config](https://github.com/alexanderby/darkreader/blob/master/src/config/inversion-fixes.config) file**.
 - Click **Edit** (login to GitHub first).
 - **Insert your fix** there. Preserve **alphabetic order** by URL.
 - Provide a **short description** of what you have done.
@@ -81,13 +83,14 @@ IGNORE INLINE STYLE
 IGNORE IMAGE ANALYSIS
 .logo
 ```
+
 - `INVERT` rule inverts specified elements.
-For **Dynamic mode** use `INVERT` only for dark images that are invisible on dark backgrounds (icons, diagrams, charts, `<img>` and `<svg>` elements).
+  For **Dynamic mode** use `INVERT` only for dark images that are invisible on dark backgrounds (icons, diagrams, charts, `<img>` and `<svg>` elements).
 - `CSS` rule adds custom CSS to a web page.
-`!important` keyword should be specified for each CSS property to prevent overrides by other stylesheets.
-**Dynamic mode** supports `${COLOR}` template, where `COLOR` is a color value before the inversion (`white` will become `black` in dark mode).
+  `!important` keyword should be specified for each CSS property to prevent overrides by other stylesheets.
+  **Dynamic mode** supports `${COLOR}` template, where `COLOR` is a color value before the inversion (`white` will become `black` in dark mode).
 - `IGNORE INLINE STYLE` rule will prevent inline style analysis of matched elements
-(e.g. for `<p style="color: red">` element's `style` attribute will not be changed).
+  (e.g. for `<p style="color: red">` element's `style` attribute will not be changed).
 - `IGNORE IMAGE ANALYSIS` rule will prevent background images from being analyzed for matched selectors.
 
 **Dynamic variables**
@@ -156,6 +159,7 @@ Install development dependencies by running `npm install` in the project root fo
 Then execute `npm run debug`.
 
 #### Chrome
+
 - Open the `chrome://extensions` page.
 - Disable the official Dark Reader version.
 - Enable the **Developer mode**.
@@ -163,6 +167,7 @@ Then execute `npm run debug`.
 - Navigate to the project's `debug/` folder.
 
 #### Firefox
+
 - Open the `about:addons` page.
 - Disable the official Dark Reader version.
 - Open `about:debugging#addons` page.
@@ -181,53 +186,59 @@ Run tests by executing `npm test`.
 Submit a **pull request**, and wait for **review**.
 
 ## Building for use
+
 You can install the extension from a file.  
 Install [Node.js LTS](https://nodejs.org/en/). Download the source code (or check out from git).  
-Open terminal in root folder and run:  
-- `npm install`  
-- `npm run release`  
+Open terminal in root folder and run:
+
+- `npm install`
+- `npm run release`
 
 This will generate `build.zip` for use in Chromium browsers and `build-firefox.xpi` for use in Firefox.
 
 ## Using for a website
 
 You can use Dark Reader to enable dark mode on your website!
+
 - Install the package from NPM (`npm install darkreader`)
 - or build from the source code (`npm run api`)
 - or include the script via a CDN such as [unpkg](https://unpkg.com/darkreader/) or [jsDelivr](https://www.jsdelivr.com/package/npm/darkreader)
 
 Then use the following API
+
 ```javascript
 DarkReader.enable({
-    brightness: 100,
-    contrast: 90,
-    sepia: 10
+  brightness: 100,
+  contrast: 90,
+  sepia: 10,
 });
 
 DarkReader.disable();
 
 // Enable when system color scheme is dark
 DarkReader.auto({
-    brightness: 100,
-    contrast: 90,
-    sepia: 10
+  brightness: 100,
+  contrast: 90,
+  sepia: 10,
 });
 
 // Stop watching for system color scheme
 DarkReader.auto(false);
 ```
+
 ... or if you are using ES modules
+
 ```javascript
 import {
-    enable as enableDarkMode,
-    disable as disableDarkMode,
-    auto as followSystemColorScheme,
-} from 'darkreader';
+  enable as enableDarkMode,
+  disable as disableDarkMode,
+  auto as followSystemColorScheme,
+} from "darkreader";
 
 enableDarkMode({
-    brightness: 100,
-    contrast: 90,
-    sepia: 10,
+  brightness: 100,
+  contrast: 90,
+  sepia: 10,
 });
 
 disableDarkMode();
